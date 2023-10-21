@@ -4,6 +4,9 @@ from torch.optim.lr_scheduler import StepLR
 import random
 import argparse
 
+import timm
+assert timm.__version__ == "0.4.12" # version check
+
 import models_mae
 from model_utils.data import create_data_loader, split_data
 from model_utils.train import train_VAL
