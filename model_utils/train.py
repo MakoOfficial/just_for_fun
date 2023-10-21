@@ -36,9 +36,6 @@ def train_VAL(model, train_loader, val_loader, optimizer, scheduler, num_epoch, 
         for i, data in enumerate(train_loader):
             optimizer.zero_grad()
             image = data.type(torch.FloatTensor).to(device)
-            print(f"before:{image.shape}")
-            image = torch.einsum('nhwc->nchw', image)
-            print(f"after:{image.shape}")
             loss, pred, mask = model(image, 0.75)
 
             loss.backward()
