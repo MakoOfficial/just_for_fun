@@ -26,7 +26,7 @@ def get_args_parser():
     return parser
 
 
-def initMaeClass(args):
+def initMae(args):
     """load a pretrained-model"""
     model = models_mae.__dict__[args.model]()
     checkpoint = torch.load(args.predModelPath, map_location='cpu')
@@ -38,6 +38,11 @@ def initMaeClass(args):
     model.load_state_dict(model_dict)
     return model
 
+from models_mae import new_model
+def initNewModel(backbone):
+    """load a new model"""
+    model = new_model(backbone)
+    return model
 
 def try_gpu(i=0):
     """如果存在，则返回gpu(i)，否则返回cpu()"""
@@ -72,7 +77,8 @@ train_loader, val_loader = create_data_loader(train_df, valid_df, batch_size)
 if __name__ == '__main__':
     args = get_args_parser()
     args = args.parse_args()
-    model = initMaeClass(args).to(device)
+    # model = initMae(args).to(device)
+    model = initNewModel(initMae(args)).to(device)
     optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
     scheduler = StepLR(optimizer, step_size=lr_period, gamma=lr_decay)
     train_VAL(model=model, train_loader=train_loader, val_loader=val_loader, optimizer=optimizer, scheduler=scheduler,
