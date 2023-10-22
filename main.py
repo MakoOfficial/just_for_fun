@@ -1,6 +1,7 @@
 import torch
 from torch import optim
 from torch.optim.lr_scheduler import StepLR
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 import random
 import argparse
 
@@ -80,6 +81,7 @@ if __name__ == '__main__':
     # model = initMae(args).to(device)
     model = initNewModel(initMae(args)).to(device)
     optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
-    scheduler = StepLR(optimizer, step_size=lr_period, gamma=lr_decay)
+    # scheduler = StepLR(optimizer, step_size=lr_period, gamma=lr_decay)
+    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=10, threshold=1e-4)
     train_VAL(model=model, train_loader=train_loader, val_loader=val_loader, optimizer=optimizer, scheduler=scheduler,
               num_epoch=epoch, device=device, save_=savePath, record_path="./RECORD.csv")

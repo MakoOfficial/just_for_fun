@@ -60,11 +60,12 @@ def train_VAL(model, train_loader, val_loader, optimizer, scheduler, num_epoch, 
 
             record.append([epoch, train_loss/train_loader.dataset.__len__(), val_loss/val_loader.dataset.__len__(),
                            optimizer.param_groups[0]["lr"]])
+            scheduler.step(plt_train_loss[-1])
             #将结果 print 出來
             print('[%03d/%03d] %22.f sec(s) Train Loss: %3.6f | Val loss: %3.6f' % \
                   (epoch + 1, num_epoch, time.time()-epoch_start_time, plt_train_loss[-1], plt_val_loss[-1]))
 
-        scheduler.step()
+        
         with open(record_path, 'a+', newline='') as csvfile:
             writer = csv.writer(csvfile)
             for row in record:
