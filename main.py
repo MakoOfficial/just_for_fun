@@ -17,10 +17,10 @@ def get_args_parser():
     parser = argparse.ArgumentParser('MAE fine-tuning for image classification', add_help=False)
 
     #model
-    parser.add_argument('--model', default='mae_vit_base_patch16', type=str, metavar='MODEL',
+    parser.add_argument('--model', default='mae_vit_large_patch16', type=str, metavar='MODEL',
                        help='Name of model to train')
     #path
-    parser.add_argument('--predModelPath', default='./mae_pretrain_vit_base.pth',
+    parser.add_argument('--predModelPath', default='./mae_visualize_vit_large_ganloss.pth',
                         help='finetune from checkpoint')
 
     return parser
