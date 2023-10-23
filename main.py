@@ -18,10 +18,10 @@ def get_args_parser():
     parser = argparse.ArgumentParser('MAE fine-tuning for image classification', add_help=False)
 
     #model
-    parser.add_argument('--model', default='mae_vit_large_patch16', type=str, metavar='MODEL',
+    parser.add_argument('--model', default='mae_vit_base_patch16', type=str, metavar='MODEL',
                        help='Name of model to train')
     #path
-    parser.add_argument('--predModelPath', default='./mae_visualize_vit_large_ganloss.pth',
+    parser.add_argument('--predModelPath', default='./mae_visualize_vit_base.pth',
                         help='finetune from checkpoint')
 
     return parser
@@ -78,8 +78,8 @@ train_loader, val_loader = create_data_loader(train_df, valid_df, batch_size)
 if __name__ == '__main__':
     args = get_args_parser()
     args = args.parse_args()
-    # model = initMae(args).to(device)
-    model = initNewModel(initMae(args)).to(device)
+    model = initMae(args).to(device)
+    # model = initNewModel(initMae(args)).to(device)
     optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
     # scheduler = StepLR(optimizer, step_size=lr_period, gamma=lr_decay)
     scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=10, threshold=1e-4)
