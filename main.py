@@ -63,7 +63,7 @@ lr_decay = 0.8
 epoch = 500
 device = try_gpu()
 ##################################################################
-savePath = './myPretrain_1000epoch.pth'
+savePath = './myPretrain_500epoch.pth'
 ##################################################################
 bone_dir = "../archive"
 csv_name = "boneage-training-dataset.csv"
