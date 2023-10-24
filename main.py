@@ -56,14 +56,14 @@ def try_gpu(i=0):
 random.seed(1)
 batch_size = 128
 learning_rate = 5e-3
-num_epochs = 500
+num_epochs = 700
 weight_decay = 1e-5
 lr_period = 10
 lr_decay = 0.8
-epoch = 500
+epoch = 700
 device = try_gpu()
 ##################################################################
-savePath = './myPretrain_500epoch.pth'
+savePath = './myPretrain_700epoch.pth'
 ##################################################################
 bone_dir = "../archive"
 csv_name = "boneage-training-dataset.csv"
